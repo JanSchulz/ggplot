@@ -19,7 +19,8 @@ import sys
 import re
 import warnings
 
-
+if sys.flags.interactive:
+    plt.ion()
 
 def is_identity(x):
     if x in colors.COLORS:

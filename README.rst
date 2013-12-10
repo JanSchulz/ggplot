@@ -1,3 +1,6 @@
+.. image:: https://secure.travis-ci.org/JanSchulz/ggplot.png?branch=travis
+   :target: http://travis-ci.org/JanSchulz/ggplot
+
 {ggplot} from `Yhat <http://yhathq.com>`__
 ==========================================
 

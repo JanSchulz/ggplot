@@ -1,14 +1,10 @@
-from distutils.core import setup
-from setuptools import find_packages
 import os
-
-
-required = ["pandas"]
+from setuptools import find_packages, setup
 
 def extract_version():
     """
-    Extracts version values from the main matplotlib __init__.py and
-    returns them as a dictionary.
+    Extracts the version value from the main ggplot/__init__.py and
+    returns it.
     """
     with open('ggplot/__init__.py') as fd:
         for line in fd.readlines():
@@ -17,32 +13,44 @@ def extract_version():
     return locals()["__version__"]
 
 def get_package_data():
-    baseline_images = [
-        'tests/baseline_images/%s/*' % x
-        for x in os.listdir('ggplot/tests/baseline_images')]
+    ''' Find all additional package data to distribute with code. '''
 
-    return {
-        'ggplot':
-        baseline_images +
-        [
-            "exampledata/*.csv", 
-            "geoms/*.png"
-        ]} 
+    baseline_images = ['tests/baseline_images/%s/*' % x
+                       for x in os.listdir('ggplot/tests/baseline_images')]
 
-setup(
-    name="ggplot",
-    # Increase the version in ggplot/__init__.py
-    version=extract_version(),
-    author="Greg Lamp",
-    author_email="greg@yhathq.com",
-    url="https://github.com/yhat/ggplot/",
-    license="BSD",
-    packages=find_packages(),
-    package_dir={"ggplot": "ggplot"},
-    package_data=get_package_data(),
-    description="ggplot for python",
-    # run pandoc --from=markdown --to=rst --output=README.rst README.md
-    long_description=open("README.rst").read(),
-    install_requires=required,
-)
+    return {'ggplot': baseline_images + ["exampledata/*.csv", "geoms/*.png"]}
 
+
+def get_readme():
+    ''' Retrieve README.rst's content in a safe way. '''
+    with open('README.rst') as f:
+        return f.read()
+
+setup(name="ggplot",
+      # Increase the version in ggplot/__init__.py
+      version=extract_version(),
+      author="Greg Lamp",
+      author_email="greg@yhathq.com",
+      url="https://github.com/yhat/ggplot/",
+      license="BSD",
+      packages=find_packages(),
+      package_dir={"ggplot": "ggplot"},
+      package_data=get_package_data(),
+      description="ggplot for python",
+      long_description=get_readme(),
+      install_requires=["pandas", "matplotlib", "scipy", "statsmodels",
+                        "patsy"],
+      classifiers=['Intended Audience :: Science/Research',
+                   'Intended Audience :: Developers',
+                   'Programming Language :: Python',
+                   'Topic :: Software Development',
+                   'Topic :: Scientific/Engineering',
+                   'Operating System :: Microsoft :: Windows',
+                   'Operating System :: POSIX',
+                   'Operating System :: Unix',
+                   'Operating System :: MacOS',
+                   'Programming Language :: Python :: 2',
+                   'Programming Language :: Python :: 2.7',
+                   'Programming Language :: Python :: 3',
+                   'Programming Language :: Python :: 3.3'],
+      zip_safe=False)

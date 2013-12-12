@@ -1,3 +1,5 @@
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 # For testing purposes we might need to set mpl backend before any
 # other import of matplotlib.
 def _set_mpl_backend():
@@ -17,7 +19,7 @@ _set_mpl_backend()
 __version__ = '0.4.3'
 
 from .ggplot import *
-from components import aes
+from .components import aes
 from .geoms import *
 from .scales import *
 from .themes import *

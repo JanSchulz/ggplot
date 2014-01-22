@@ -1,0 +1,11 @@
+# normal requirements
+pandas
+matplotlib>=1.1.1
+scipy
+statsmodels
+patsy
+# requirements for doc building
+numpy
+sphinx
+IPython
+numpydoc
